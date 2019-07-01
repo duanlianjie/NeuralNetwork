@@ -24,7 +24,7 @@ class CrossEntropyCost(object):
         return (a-y)
 ```
 2. 激活函数：激活函数使用sigmoid函数，下面是其计算和其导数的计算。
-![激活函数](images/p3png)
+![激活函数](images/p3.png)
 ```python
 def sigmoid(z):
     return 1.0/(1.0+np.exp(-z))
@@ -74,19 +74,6 @@ def sigmoid_prime(z):
                 self.update_mini_batch(
                     mini_batch, eta, lmbda, len(training_data))
             print("Epoch %s training complete" % j)
-            if monitor_training_cost:
-                cost = self.total_cost(training_data, lmbda)
-                training_cost.append(cost)
-                print("Cost on training data: {}".format(cost))
-            if monitor_training_accuracy:
-                accuracy = self.accuracy(training_data)
-                training_accuracy.append(accuracy)
-                print("Accuracy on training data: {} / {}".format(
-                    accuracy, n))
-            if monitor_evaluation_cost:
-                cost = self.total_cost(evaluation_data, lmbda)
-                evaluation_cost.append(cost)
-                print("Cost on evaluation data: {}".format(cost))
             if monitor_evaluation_accuracy:
                 accuracy = self.accuracy(evaluation_data)
                 evaluation_accuracy.append(accuracy)
@@ -230,6 +217,7 @@ make_plot(epochs, evaluation_accuracy1, evaluation_accuracy2,\
           "CompareofCost")
 ```
 ![#1](images/CompareofCost.png)
+
 从图上可以看出，使用二次代价函数的效果远比交叉熵代价函数好得多，而且交叉熵函数随着迭代期的波动很大。和手写数字识别不同的是，mushroom数据集只是一个二分类问题，而且数据集较小，所以猜测交叉熵在mushroom数据集中没有起到作用，导致二次代价函数展现的效果比它要好。
 2. 不同神经网络隐藏层设置对比
 ```python
@@ -271,6 +259,7 @@ plt.show()
 ```
 ![#2](images/CompareofLayers.png)
 ![#3](images/CompareofLayers2.png)
+
 从图上可以看出，在代价函数为二次代价函数的情况下，隐藏层的结构对网络的准确率影响并不大，放大来看局部图,当隐藏层层数为两层且隐藏神经元较多时准确率更大些，选取为[22,50,100,2]。
 3. 不同的小批次大小对比
 ```python
@@ -312,6 +301,7 @@ plt.savefig('CompareofMinibatch')
 plt.show()
 ```
 ![#4](images/CompareofMinibatch.png)
+
 从图上可以看出，mini_batch为100时准确率明显低于10，而mini_batch为5,10,20时，准确率相差不大，所以mini_batch太大会非常影响神经网络的训练效果，选择mini_batch为10。
 4. 不同学习率对比
 ```python
@@ -353,6 +343,7 @@ def compare_eta():
     plt.show()
 ```
 ![#5](images/CompareofEta.png)
+
 从图上可以看出，学习率为10和50时准确率并没有上升的意思，而学习率太小0.05准确率没有0.5高，设置学习率为0.5。
 5. 不同正则化参数对比
 ```python
@@ -393,7 +384,9 @@ def compare_lmbda():
     plt.savefig('Compareoflmbda')
     plt.show()
 ```
-![#6](images/Compareoflmbda.png)从图中可以看出，正则化参数越高准确率越低，主要是因为数据集太小的原因。设置正则化参数为0.1。
+![#6](images/Compareoflmbda.png)
+
+从图中可以看出，正则化参数越高准确率越低，主要是因为数据集太小的原因。设置正则化参数为0.1。
 ### 四.最优神经网络
 ```python
 net_one = mynetwork.Network(layers, cost=mynetwork.QuadraticCost)

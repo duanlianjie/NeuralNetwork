@@ -2,6 +2,7 @@
 ### 一. 神经网络的搭建
 1. 代价函数
 - 二次代价函数:网络输出a和目标输出y的二次代价函数的直接计算结果。
+
 ![二次代价函数](images/p1.PNG)
 ```python
 class QuadraticCost(object):
@@ -13,6 +14,7 @@ class QuadraticCost(object):
         return (a-y) * sigmoid_prime(z)
 ```
 - 交叉熵代价函数:函数是非负的，在神经元达到很好的正确率的时候会接近零。输出激活值a和目标输出y差距优劣的度量。  
+
 ![交叉熵代价函数](images/p2.PNG)
 ```python
 class CrossEntropyCost(object):

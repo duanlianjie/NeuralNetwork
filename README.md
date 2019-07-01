@@ -2,7 +2,7 @@
 ### 一. 神经网络的搭建
 1. 代价函数
 - 二次代价函数:网络输出a和目标输出y的二次代价函数的直接计算结果。
-![二次代价函数]("p1.png")
+![二次代价函数](images/p1.png)
 ```python
 class QuadraticCost(object):
     @staticmethod
@@ -13,7 +13,7 @@ class QuadraticCost(object):
         return (a-y) * sigmoid_prime(z)
 ```
 - 交叉熵代价函数:函数是非负的，在神经元达到很好的正确率的时候会接近零。输出激活值a和目标输出y差距优劣的度量。  
-![交叉熵代价函数]("p2.png")
+![交叉熵代价函数](images/p2.png)
 ```python
 class CrossEntropyCost(object):
     @staticmethod
@@ -24,7 +24,7 @@ class CrossEntropyCost(object):
         return (a-y)
 ```
 2. 激活函数：激活函数使用sigmoid函数，下面是其计算和其导数的计算。
-![激活函数]("p3png")
+![激活函数](images/p3png)
 ```python
 def sigmoid(z):
     return 1.0/(1.0+np.exp(-z))
@@ -175,7 +175,7 @@ for col in data.columns:
 data = np.array(data)
 train, test = train_test_split(data, test_size = 0.4)
 ```
-![数字化后的数据集](Tables.png)
+![数字化后的数据集](images/Tables.png)
 2. 调整格式：为了适应神经网络的结构，需要将数据集处理为元素为元组的列表的形式，元组的两个元素是输入层和输出层。输入是22行的列向量，输出是两行的列向量。
 ```python
 train_out = [x[0] for x in train]
@@ -393,12 +393,12 @@ def compare_lmbda():
     plt.savefig('Compareoflmbda')
     plt.show()
 ```
-![#6](Compareoflmbda.png)从图中可以看出，正则化参数越高准确率越低，主要是因为数据集太小的原因。设置正则化参数为0.1。
+![#6](images/Compareoflmbda.png)从图中可以看出，正则化参数越高准确率越低，主要是因为数据集太小的原因。设置正则化参数为0.1。
 ### 四.最优神经网络
 ```python
 net_one = mynetwork.Network(layers, cost=mynetwork.QuadraticCost)
 net_one.large_weight_initializer()
 accuracy = net_one.SGD(train_datas, epochs, mini_batch, eta, evaluation_data = test_datas,monitor_evaluation_accuracy = True)
 ```
-![结果](Last.png)
+![结果](images/Last.png)
 ### 666666

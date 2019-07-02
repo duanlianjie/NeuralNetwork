@@ -1,4 +1,6 @@
 # 利用神经网络对mushroom进行分类
+[###](###一. 神经网络的搭建)
+
 ### 一. 神经网络的搭建
 1. 代价函数
 - 二次代价函数:网络输出a和目标输出y的二次代价函数的直接计算结果。
@@ -16,6 +18,7 @@ class QuadraticCost(object):
 - 交叉熵代价函数:函数是非负的，在神经元达到很好的正确率的时候会接近零。输出激活值a和目标输出y差距优劣的度量。  
 
 ![交叉熵代价函数](images/p2.PNG)
+
 ```python
 class CrossEntropyCost(object):
     @staticmethod
@@ -26,7 +29,9 @@ class CrossEntropyCost(object):
         return (a-y)
 ```
 2. 激活函数：激活函数使用sigmoid函数，下面是其计算和其导数的计算。
+
 ![激活函数](images/p3.PNG)
+
 ```python
 def sigmoid(z):
     return 1.0/(1.0+np.exp(-z))
@@ -165,6 +170,7 @@ data = np.array(data)
 train, test = train_test_split(data, test_size = 0.4)
 ```
 ![数字化后的数据集](images/Tables.png)
+
 2. 调整格式：为了适应神经网络的结构，需要将数据集处理为元素为元组的列表的形式，元组的两个元素是输入层和输出层。输入是22行的列向量，输出是两行的列向量。
 ```python
 train_out = [x[0] for x in train]
@@ -347,6 +353,7 @@ def compare_eta():
 ![#5](images/CompareofEta.png)
 
 从图上可以看出，学习率为10和50时准确率并没有上升的意思，而学习率太小0.05准确率没有0.5高，设置学习率为0.5。
+
 5. 不同正则化参数对比
 ```python
 def compare_lmbda():

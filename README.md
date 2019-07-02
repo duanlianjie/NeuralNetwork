@@ -158,7 +158,7 @@ def sigmoid_prime(z):
             json.dump(data, f) #写入json文件
             f.close()
         ```
-### 二. 数据集处理：
+### 二. 数据集处理
 查看mushroom.csv文件，该数据集处理的目标是根据22个特征预测蘑菇是否有毒。是否有毒根据数据数字化来看，0和1分别表示无毒和有毒。
 1. 将字母处理为数字：直接调用sklearn库的preprocessing库，使用LabelEncoder将字母数字化，然后再用train_test_split方法分离测试集和训练集。
 ```python
@@ -186,7 +186,8 @@ test_ins = [np.reshape(x, (22,1)) for x in test_in]
 train_datas = list(zip(train_ins, train_outs))
 test_datas = list(zip(test_ins, test_outs))
 ```
-### 三. 调参调优：控制变量，当比较某一参数时，将其他参数设置为最优情况时的数值。
+### 三. 调参调优
+控制变量，当比较某一参数时，将其他参数设置为最优情况时的数值。
 ```python
 # 训练集：测试集 = 6：4
 train_datas, test_datas = data.data_loader()

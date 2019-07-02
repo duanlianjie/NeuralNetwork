@@ -1,11 +1,12 @@
 # 利用神经网络对mushroom进行分类
-[###](###一. 神经网络的搭建)
+[###](### 一. 神经网络的搭建)
 
 ### 一. 神经网络的搭建
 1. 代价函数
 - 二次代价函数:网络输出a和目标输出y的二次代价函数的直接计算结果。
 
 ![二次代价函数](images/p1.PNG)
+
 ```python
 class QuadraticCost(object):
     @staticmethod
@@ -265,6 +266,7 @@ def compare_layers():
     plt.savefig('CompareofLayers')
     plt.show()
 ```
+
 ![#2](images/CompareofLayers.png)
 ![#3](images/CompareofLayers2.png)
 
@@ -308,6 +310,7 @@ def compare_mini_batch():
     plt.savefig('CompareofMinibatch')
     plt.show()
 ```
+
 ![#4](images/CompareofMinibatch.png)
 
 从图上可以看出，mini_batch为100时准确率明显低于10，而mini_batch为5,10,20时，准确率相差不大，所以mini_batch太大会非常影响神经网络的训练效果，选择mini_batch为10。
@@ -393,6 +396,7 @@ def compare_lmbda():
     plt.savefig('Compareoflmbda')
     plt.show()
 ```
+
 ![#6](images/Compareoflmbda.png)
 
 从图中可以看出，正则化参数越高准确率越低，主要是因为数据集太小的原因。设置正则化参数为0.1。
@@ -402,5 +406,7 @@ net_one = mynetwork.Network(layers, cost=mynetwork.QuadraticCost)
 net_one.large_weight_initializer()
 accuracy = net_one.SGD(train_datas, epochs, mini_batch, eta, evaluation_data = test_datas,monitor_evaluation_accuracy = True)
 ```
+
 ![结果](images/Last.png)
+
 ### 666666

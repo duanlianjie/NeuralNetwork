@@ -1,4 +1,4 @@
-# 利用神经网络对mushroom进行处理和分类
+# 利用神经网络对mushroom进行分类
 ### 一. 神经网络的搭建
 1. 代价函数
 - 二次代价函数:网络输出a和目标输出y的二次代价函数的直接计算结果。
@@ -194,29 +194,29 @@ lmbda = 5
 1. 对比代价函数分别为交叉熵和二次代价函数时的两种情况
 ```python
 def make_plot(epochs, ls1, ls2, label1, label2, title):
-fig, ax = plt.subplots()
-ax.plot(np.arange(1,epochs+1,1), ls1, 'rx--', color = '#2A6EA6', label = label1)
-ax.plot(np.arange(1,epochs+1,1), ls2, 'bo:', color = '#FFA933', label = label2)
-ax.set_xlabel('Epochs')
-ax.set_ylabel('Accuracy')
-ax.set_title(title)
-plt.legend(loc = 'best')
-plt.savefig(title)
-plt.show()
-# 对比1 分别使用交叉熵和二次代价函数
-def compare_cost():
-net1 = mynetwork.Network(layers, cost=mynetwork.QuadraticCost)
-net2 = mynetwork.Network(layers, cost=mynetwork.CrossEntropyCost)
-net1.large_weight_initializer()
-net2.large_weight_initializer()
+    fig, ax = plt.subplots()
+    ax.plot(np.arange(1,epochs+1,1), ls1, 'rx--', color = '#2A6EA6', label = label1)
+    ax.plot(np.arange(1,epochs+1,1), ls2, 'bo:', color = '#FFA933', label = label2)
+    ax.set_xlabel('Epochs')
+    ax.set_ylabel('Accuracy')
+    ax.set_title(title)
+    plt.legend(loc = 'best')
+    plt.savefig(title)
+    plt.show()
+    # 对比1 分别使用交叉熵和二次代价函数
+    def compare_cost():
+    net1 = mynetwork.Network(layers, cost=mynetwork.QuadraticCost)
+    net2 = mynetwork.Network(layers, cost=mynetwork.CrossEntropyCost)
+    net1.large_weight_initializer()
+    net2.large_weight_initializer()
 
-evaluation_accuracy1 = net1.SGD(train_datas, epochs, mini_batch, eta, evaluation_data = test_datas, \
-          monitor_evaluation_accuracy = True)
-evaluation_accuracy2 = net2.SGD(train_datas, epochs, mini_batch, eta, evaluation_data = test_datas, \
-          monitor_evaluation_accuracy = True)
-make_plot(epochs, evaluation_accuracy1, evaluation_accuracy2,\
-          "Evaluation_accuracy_Quadratic", "Evaluation_accuracy_CrossEntropy",\
-          "CompareofCost")
+    evaluation_accuracy1 = net1.SGD(train_datas, epochs, mini_batch, eta, evaluation_data = test_datas, \
+              monitor_evaluation_accuracy = True)
+    evaluation_accuracy2 = net2.SGD(train_datas, epochs, mini_batch, eta, evaluation_data = test_datas, \
+              monitor_evaluation_accuracy = True)
+    make_plot(epochs, evaluation_accuracy1, evaluation_accuracy2,\
+              "Evaluation_accuracy_Quadratic", "Evaluation_accuracy_CrossEntropy",\
+              "CompareofCost")
 ```
 ![#1](images/CompareofCost.png)
 
@@ -224,40 +224,40 @@ make_plot(epochs, evaluation_accuracy1, evaluation_accuracy2,\
 2. 不同神经网络隐藏层设置对比
 ```python
 def compare_layers():
-layers1 = [22,30,2]
-layers2 = [22,50,2]
-layers3 = [22,30,100,2]
-layers4 = [22,50,100,2]
-net1 = mynetwork.Network(layers1, cost=mynetwork.CrossEntropyCost)
-net2 = mynetwork.Network(layers2, cost=mynetwork.CrossEntropyCost)
-net3 = mynetwork.Network(layers3, cost=mynetwork.CrossEntropyCost)
-net4 = mynetwork.Network(layers4, cost=mynetwork.CrossEntropyCost)
-net1.large_weight_initializer()
-net2.large_weight_initializer()
-net3.large_weight_initializer()
-net4.large_weight_initializer()
+    layers1 = [22,30,2]
+    layers2 = [22,50,2]
+    layers3 = [22,30,100,2]
+    layers4 = [22,50,100,2]
+    net1 = mynetwork.Network(layers1, cost=mynetwork.CrossEntropyCost)
+    net2 = mynetwork.Network(layers2, cost=mynetwork.CrossEntropyCost)
+    net3 = mynetwork.Network(layers3, cost=mynetwork.CrossEntropyCost)
+    net4 = mynetwork.Network(layers4, cost=mynetwork.CrossEntropyCost)
+    net1.large_weight_initializer()
+    net2.large_weight_initializer()
+    net3.large_weight_initializer()
+    net4.large_weight_initializer()
 
-evaluation_accuracy1 = net1.SGD(train_datas, epochs, mini_batch, eta, evaluation_data = test_datas, \
-          monitor_evaluation_accuracy = True)
-evaluation_accuracy2 = net2.SGD(train_datas, epochs, mini_batch, eta, evaluation_data = test_datas, \
-          monitor_evaluation_accuracy = True)
-evaluation_accuracy3 = net3.SGD(train_datas, epochs, mini_batch, eta, evaluation_data = test_datas, \
-          monitor_evaluation_accuracy = True)
-evaluation_accuracy4 = net4.SGD(train_datas, epochs, mini_batch, eta, evaluation_data = test_datas, \
-          monitor_evaluation_accuracy = True)
+    evaluation_accuracy1 = net1.SGD(train_datas, epochs, mini_batch, eta, evaluation_data = test_datas, \
+              monitor_evaluation_accuracy = True)
+    evaluation_accuracy2 = net2.SGD(train_datas, epochs, mini_batch, eta, evaluation_data = test_datas, \
+              monitor_evaluation_accuracy = True)
+    evaluation_accuracy3 = net3.SGD(train_datas, epochs, mini_batch, eta, evaluation_data = test_datas, \
+              monitor_evaluation_accuracy = True)
+    evaluation_accuracy4 = net4.SGD(train_datas, epochs, mini_batch, eta, evaluation_data = test_datas, \
+              monitor_evaluation_accuracy = True)
 
-fig, ax = plt.subplots()
-ax.plot(np.arange(1,epochs+1,1), evaluation_accuracy1, 'x-', color='red', label = '[22,30,2]')
-ax.plot(np.arange(1,epochs+1,1), evaluation_accuracy2, 'o-', color='blue', label = '[22,50,2]')
-ax.plot(np.arange(1,epochs+1,1), evaluation_accuracy3, 'x-', color='green', label = '[22,30,100,2]')
-ax.plot(np.arange(1,epochs+1,1), evaluation_accuracy4, 'o-', color='yellow', label = '[22,50,100,2]')
-ax.set_xlim([1,31])
-ax.set_xlabel('Epochs')
-ax.set_ylabel('Accuracy')
-ax.set_title('CompareofLayers')
-plt.legend(loc='best')
-plt.savefig('CompareofLayers')
-plt.show()
+    fig, ax = plt.subplots()
+    ax.plot(np.arange(1,epochs+1,1), evaluation_accuracy1, 'x-', color='red', label = '[22,30,2]')
+    ax.plot(np.arange(1,epochs+1,1), evaluation_accuracy2, 'o-', color='blue', label = '[22,50,2]')
+    ax.plot(np.arange(1,epochs+1,1), evaluation_accuracy3, 'x-', color='green', label = '[22,30,100,2]')
+    ax.plot(np.arange(1,epochs+1,1), evaluation_accuracy4, 'o-', color='yellow', label = '[22,50,100,2]')
+    ax.set_xlim([1,31])
+    ax.set_xlabel('Epochs')
+    ax.set_ylabel('Accuracy')
+    ax.set_title('CompareofLayers')
+    plt.legend(loc='best')
+    plt.savefig('CompareofLayers')
+    plt.show()
 ```
 ![#2](images/CompareofLayers.png)
 ![#3](images/CompareofLayers2.png)
@@ -266,41 +266,41 @@ plt.show()
 3. 不同的小批次大小对比
 ```python
 def compare_mini_batch():
-batch1 = 10
-batch2 = 20
-batch3 = 100
-batch4 = 5
-net1 = mynetwork.Network(layers, cost=mynetwork.QuadraticCost)
-net2 = mynetwork.Network(layers, cost=mynetwork.QuadraticCost)
-net3 = mynetwork.Network(layers, cost=mynetwork.QuadraticCost)
-net4 = mynetwork.Network(layers, cost=mynetwork.QuadraticCost)
-net1.large_weight_initializer()
-net2.large_weight_initializer()
-net3.large_weight_initializer()
-net4.large_weight_initializer()
+    batch1 = 10
+    batch2 = 20
+    batch3 = 100
+    batch4 = 5
+    net1 = mynetwork.Network(layers, cost=mynetwork.QuadraticCost)
+    net2 = mynetwork.Network(layers, cost=mynetwork.QuadraticCost)
+    net3 = mynetwork.Network(layers, cost=mynetwork.QuadraticCost)
+    net4 = mynetwork.Network(layers, cost=mynetwork.QuadraticCost)
+    net1.large_weight_initializer()
+    net2.large_weight_initializer()
+    net3.large_weight_initializer()
+    net4.large_weight_initializer()
 
-evaluation_accuracy1 = net1.SGD(train_datas, epochs, batch1, eta, evaluation_data = test_datas, \
-          monitor_evaluation_accuracy = True)
-evaluation_accuracy2 = net2.SGD(train_datas, epochs, batch2, eta, evaluation_data = test_datas, \
-          monitor_evaluation_accuracy = True)
-evaluation_accuracy3 = net3.SGD(train_datas, epochs, batch3, eta, evaluation_data = test_datas, \
-          monitor_evaluation_accuracy = True)
-evaluation_accuracy4 = net3.SGD(train_datas, epochs, batch4, eta, evaluation_data = test_datas, \
-          monitor_evaluation_accuracy = True)
+    evaluation_accuracy1 = net1.SGD(train_datas, epochs, batch1, eta, evaluation_data = test_datas, \
+              monitor_evaluation_accuracy = True)
+    evaluation_accuracy2 = net2.SGD(train_datas, epochs, batch2, eta, evaluation_data = test_datas, \
+              monitor_evaluation_accuracy = True)
+    evaluation_accuracy3 = net3.SGD(train_datas, epochs, batch3, eta, evaluation_data = test_datas, \
+              monitor_evaluation_accuracy = True)
+    evaluation_accuracy4 = net3.SGD(train_datas, epochs, batch4, eta, evaluation_data = test_datas, \
+              monitor_evaluation_accuracy = True)
 
-fig, ax = plt.subplots()
-ax.plot(np.arange(1,epochs+1,1), evaluation_accuracy1, 'x-', color='red', label = 'mini_batch=10')
-ax.plot(np.arange(1,epochs+1,1), evaluation_accuracy2, 'o-', color='blue', label = 'mini_batch=20')
-ax.plot(np.arange(1,epochs+1,1), evaluation_accuracy3, 'x-', color='green', label = 'mini_batch=100')
-ax.plot(np.arange(1,epochs+1,1), evaluation_accuracy2, 'o-', color='black', label = 'mini_batch=5')
+    fig, ax = plt.subplots()
+    ax.plot(np.arange(1,epochs+1,1), evaluation_accuracy1, 'x-', color='red', label = 'mini_batch=10')
+    ax.plot(np.arange(1,epochs+1,1), evaluation_accuracy2, 'o-', color='blue', label = 'mini_batch=20')
+    ax.plot(np.arange(1,epochs+1,1), evaluation_accuracy3, 'x-', color='green', label = 'mini_batch=100')
+    ax.plot(np.arange(1,epochs+1,1), evaluation_accuracy2, 'o-', color='black', label = 'mini_batch=5')
 
-ax.set_xlim([1,31])
-ax.set_xlabel('Epochs')
-ax.set_ylabel('Accuracy')
-ax.set_title('CompareofMinibatch')
-plt.legend(loc='best')
-plt.savefig('CompareofMinibatch')
-plt.show()
+    ax.set_xlim([1,31])
+    ax.set_xlabel('Epochs')
+    ax.set_ylabel('Accuracy')
+    ax.set_title('CompareofMinibatch')
+    plt.legend(loc='best')
+    plt.savefig('CompareofMinibatch')
+    plt.show()
 ```
 ![#4](images/CompareofMinibatch.png)
 

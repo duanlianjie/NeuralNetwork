@@ -158,7 +158,8 @@ def sigmoid_prime(z):
             json.dump(data, f) #写入json文件
             f.close()
         ```
-### 二. 数据集处理：查看mushroom.csv文件，该数据集处理的目标是根据22个特征预测蘑菇是否有毒。是否有毒根据数据数字化来看，0和1分别表示无毒和有毒。
+### 二. 数据集处理：
+查看mushroom.csv文件，该数据集处理的目标是根据22个特征预测蘑菇是否有毒。是否有毒根据数据数字化来看，0和1分别表示无毒和有毒。
 1. 将字母处理为数字：直接调用sklearn库的preprocessing库，使用LabelEncoder将字母数字化，然后再用train_test_split方法分离测试集和训练集。
 ```python
 # 读取数据并预处理
